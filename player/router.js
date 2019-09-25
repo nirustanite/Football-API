@@ -1,7 +1,9 @@
+const Sequelize = require('sequelize');
 const { Router } = require('express');
 const Player = require('./model');
 const Team = require('../team/model');
 const City = require('../city/model');
+const Op = Sequelize.Op;
 
 const router = new Router();
 
@@ -31,6 +33,26 @@ router.get('/player/:id', (req,res,next) => {
           })
           .catch(next)
 })
+
+router.get('/team/:name/players', (req,res,next) => {
+    Team.findOne({
+        where:{
+            name:req.params.name
+        },
+    })
+    .then((team) => {
+        return Player.findAll({
+            where:{
+                teamId: team.id
+            }
+        });
+    })
+    .then((players) => {
+        return res.json(players)
+    })
+    .catch(next)
+})
+
 
 router.put('/player/:id', (req,res,next) => {
     Player.findByPk(req.params.id)

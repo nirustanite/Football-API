@@ -33,6 +33,7 @@ router.get('/team/:id', (req, res, next) => {
 });
 
 
+
 router.put('/team/:id', (req,res,next) => {
     Team.findByPk(req.params.id)
     .then(team => {
@@ -59,4 +60,6 @@ router.delete('/team/:id', (req,res,next) => {
     })
     .catch(next)
 })
+
+
 module.exports = router;
