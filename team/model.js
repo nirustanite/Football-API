@@ -2,7 +2,7 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Team = db.define('team',{
-    name: {
+    name:{
         type: Sequelize.STRING,
         field: 'team_name'
     }
